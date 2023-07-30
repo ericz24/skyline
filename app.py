@@ -15,7 +15,7 @@ from starlette_exporter import PrometheusMiddleware, handle_metrics
 import json
 #from requests import get
 from os import getenv, urandom, path, environ
-import aws
+#import aws
 import urllib3
 
 templates = Jinja2Templates(directory='templates')
