@@ -33,6 +33,30 @@ logging.debug('Log level is set to DEBUG.')
 def homepage(request):
     return PlainTextResponse('Hello, world!')
 
+def _getResponse(url, pagination = False):
+    allResponse = []
+    page = ""
+    pagedUrl = url
+    while True:
+
+        if page:
+            pagedUrl = url + f"&page={page}"
+        response = http.request("GET", pagedUrl)
+        data_json=json.loads(response.data)
+        results = data_json['results']
+
+        allResponse = allResponse + results
+
+        if pagination:
+
+            page = data_json['nextPage']
+
+        if not page:
+            break
+
+    print(json.dumps(allResponse, indent=2))
+    return allResponse
+
 def _setup(request):
     '''
     random.seed(str(request.url))
@@ -65,7 +89,22 @@ async def index(request):
     else:
         if not global_state["INITIALIZED"]:
             _setup(request)
-        return templates.TemplateResponse('index.html', {'request': request, 'articles':  []})
+        #response = http.request("GET", f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=top,politics,sports,entertainment,technology&language=en&country=us")
+        #data_json=json.loads(response.data)
+        #print(json.dumps(data_json, indent=2))
+
+        #results = data_json['results']
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=top&language=en&country=us")
+        top_news = [result for result in results if result['category'][0] == 'top' and result['image_url']]
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=politics&language=en&country=us")
+        politics_news = [result for result in results if result['category'][0] == 'politics' and result['image_url']]
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=sports&language=en&country=us")
+        sports_news = [result for result in results if result['category'][0] == 'sports' and result['image_url']]
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=world&language=en")
+        world_news = [result for result in results if result['category'][0] == 'world' and result['image_url']]
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=technology&language=en&country=us")
+        technology_news = [result for result in results if result['category'][0] == 'technology' and result['image_url']]
+        return templates.TemplateResponse('index.html', {'request': request, 'top_news': top_news, 'politics_news': politics_news, 'sports_news': sports_news, 'world_news': world_news, 'technology_news': technology_news})
 
 def headers(request):
     return JSONResponse(dumps({k:v for k, v in request.headers.items()}))
