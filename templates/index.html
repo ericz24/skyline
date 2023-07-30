@@ -4,130 +4,350 @@
 {% else %}
 {% set full_url = request.url | replace("http:", "https:") | string() %}
 {% endif %}
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
+    <!--Meta Tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-/* Add a gray background color with some padding */
-body {
-  font-family: Arial;
-  padding: 20px;
-  background: #f1f1f1;
-}
+    <!--Title Goes Here-->
+    <title>Top News Watch</title>
 
-/* Header/Blog Title */
-.header {
-  padding: 30px;
-  font-size: 40px;
-  text-align: center;
-  /*background: white;*/
-}
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/bootstrap.min.css' }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/fontawesome.min.css' }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/animate.min.css' }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/meanmenu.min.css' }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/acmeticker.min.css' }}" media="all">
+    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/style.css' }}" media="all">
 
-/* Create two unequal columns that floats next to each other */
-/* Left column */
-.leftcolumn {   
-  float: left;
-  width: 75%;
-}
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
-/* Right column */
-.rightcolumn {
-  float: left;
-  width: 25%;
-  padding-left: 20px;
-}
+    <!--Facebook Likebox SDK-->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=680537385693591&autoLogAppEvents=1" nonce="YCRu5rUW"></script>
 
-/* Fake image */
-.fakeimg {
-  object-fit: contain;
-  /*width: 100%;
-  padding: 20px;
-  */
-}
-
-.logoimg {
-  width: 30%;
-  height: 30%;
-}
-
-/* Add a card effect for articles */
-.card {
-   background-color: white;
-   padding: 20px;
-   margin-top: 20px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Footer */
-.footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
-  margin-top: 20px;
-}
-
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {   
-    width: 100%;
-    padding: 0;
-  }
-}
-</style>
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="img/preloader.gif" alt="Preloader Image">
+    </div>
+    <!-- Preloader -->
+    
+    <!--Header Start-->
+    <header>
+        <!--Main Header Start-->
+        <div class="main-header">
+            <div class="container">
+                <!--Logo Bar Start-->
+                <div class="logobar">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-4">
+                            <div class="top-logo">
+                                <a href="index.html"><img src="img/logo-dark.png" alt="Logo"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                <!--Logo Bar End-->
+               
+            </div>
+        </div>
 
-<div class="header">
-  <img class='logoimg' src="{{ full_url ~ 'static/logo.png' }}" />
-</div>
-<form action="/" method="post">
-  <input type="text" name="search" placeholder="Search keyword" required />
-  <input type="submit" value="Search News" />
-</form>
-<div class="row">
-  <div class="leftcolumn">
-    {% for article in articles %}
-    <div class="card">
-      <a href="{{ article.link }}" target="_blank">{{article.title}}</a>
-      <h5>{{article.pubDate}}</h5>
-      <p>{{article.description}}</p>
-      {% if 'image_url' in article %}
-      <img class='fakeimg' src="{{ article.image_url }}" />
-      {% endif %}
-      <p>{{article.content}}</p>
-    </div>
-    {% endfor %}
-  </div>
-  <div class="rightcolumn">
-    <div class="card">
-      <h2>About Me</h2>
-      <div class="fakeimg" style="height:100px;">Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-    </div>
-    <div class="card">
-      <h3>Popular Post</h3>
-      <div class="fakeimg">Image</div><br>
-      <div class="fakeimg">Image</div><br>
-      <div class="fakeimg">Image</div>
-    </div>
-    <div class="card">
-      <h3>Follow Me</h3>
-      <p>Some text..</p>
-    </div>
-  </div>
-</div>
+        <div class="navigation border-bottom border-top">
+            <div class="container">
+                <!--Main Menu Start-->
+                <nav class="main-menu desktop-menu menu-shadow">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="menu-container">
+                                <ul class="menu">
+                                    <li><a href="index.html"><i class="fas fa-home menu-icon"></i> Home</a></li>
+                                    <li class="has-submenu"><a href="#">Pages</a>
+                                        <ul class="submenu">
+                                            <li class="has-submenu"><a href="#">Homepages</a>
+                                                <ul class="submenu">
+                                                    <li><a href="index.html">Home 1</a></li>
+                                                    <li><a href="index-2.html">Home 2</a></li>
+                                                    <li><a href="index-3.html">Home 3</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="login.html">Login</a></li>
+                                            <li><a href="register.html">Register</a></li>
+                                            <li><a href="search.html">Search Page</a></li>
+                                            <li><a href="404.html">404 Page</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu"><a href="#">Post Type</a>
+                                        <ul class="submenu">
+                                            <li><a href="standard.html">Standard</a></li>
+                                            <li><a href="audio.html">Audio</a></li>
+                                            <li><a href="video.html">Video</a></li>
+                                            <li><a href="gallery.html">Gallery</a></li>
+                                            <li><a href="quote.html">Quote</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">World</a></li>
+                                    <li><a href="#">Politics</a></li>
+                                    <li><a href="#">Education</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <!-- Header Search Start -->
+                            <div class="header-search">
+                                <div class="search-icon text-end">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <div class="searchbox">
+                                    <form action="#" method="get">
+                                        <div class="input-group">
+                                            <input type="text" id="s" class="form-control" placeholder="Search...">
+                                            <button class="btn btn-danger" type="button"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Header Search End -->
+                        </div>
+                    </div>
+                </nav>              
+                <div class="mobile-menu"></div>
+                <!--Main Menu End-->
+            </div>
+        </div>
+        <!--Main Header End-->
+    </header>
+    <!--Header End-->
 
+    <!--Post Block 1 Start-->
+    <div class="post-block">
+        <div class="container">
+            <div class="inews-post-block1">
+                {% for i in range(3) %}
+                <!--Post Item Start-->
+                <div class="inews-post-item">
+                    <div class="inews-post-thumb">
+                        <a href="#">
+                            <img src="{{ top_news[i].image_url }}" alt="Image">
+                        </a>                    
+                    </div>
+                    <div class="inews-post-info overlay">
+                        <a href="#" class="inews-post-cat">Top News</a>
+                        <div class="inews-post-title">
+                            <h3>
+                                <a href="{{ top_news[i].link }}" target="_blank">{{top_news[i].title}}</a>
+                            </h3>
+                        </div>
+                        <div class="inews-post-meta">
+                            <span class="inews-post-author"><a href="">{{top_news[i].source_id}}</a> <span>-</span> </span>
+                            <span class="inews-post-date">{{top_news[i].pubDate}}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!--Post Item End-->
+                
+            </div>
+        </div>
+    </div>
+    <!--Post Block 1 End-->
+
+    <div class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">                    
+                    <!--Post Block 2 Start-->
+                    <div class="post-block">
+                        <div class="inews-post-block2">
+                            <div class="inews-block-title">
+                                <h4><span>Politics</span></h4>
+                            </div>
+                            {% for i in range(4) %}
+                            <!--Post Item Start-->
+                            <div class="inews-post-item">
+                                <div class="inews-post-thumb">
+                                    <a href="#">
+                                        <img src="{{ politics_news[i].image_url }}" alt="Image">
+                                        <div class="inews-thumb-overlay overlay">
+                                            <div class="icon">
+                                                <i class="far fa-play-circle"></i>
+                                            </div>
+                                        </div>
+                                    </a>                    
+                                </div>
+                                <div class="inews-post-info">
+                                    <div class="inews-post-title">
+                                        <h3>
+                                            <a href="{{ politics_news[i].link }}#">{{politics_news[i].title}}</a>
+                                        </h3>
+                                    </div>
+                                    <div class="inews-post-meta">
+                                        <span class="inews-post-author">
+                                            <i class="fas fa-user"></i> <a href="">{{politics_news[i].source_id}}</a>
+                                        </span>
+                                        <span class="inews-post-date">
+                                            <i class="fas fa-calendar-alt"></i>{{politics_news[i].pubDate}}
+                                        </span>
+                                    </div>
+                                    <div class="inews-post-content">
+                                        <p>{{politics_news[i].description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!--Post Item End-->                            
+                        </div>
+                    </div>
+                    <!--Post Block 2 End-->
+
+                    <!--Post Block 3 Start-->
+                    <div class="post-block">
+                        <div class="inews-post-block2">
+                            <div class="inews-block-title">
+                                <h4><span>Sports</span></h4>
+                            </div>
+                            {% for i in range([sports_news|length, 4] | min) %}
+                            <!--Post Item Start-->
+                            <div class="inews-post-item">
+                                <div class="inews-post-thumb">
+                                    <a href="#">
+                                        <img src="{{ sports_news[i].image_url }}" alt="Image">
+                                        <div class="inews-thumb-overlay overlay">
+                                            <div class="icon">
+                                                <i class="fas fa-images"></i>
+                                            </div>
+                                        </div>
+                                    </a>                    
+                                </div>
+                                <div class="inews-post-info">
+                                    <div class="inews-post-title">
+                                        <h3>
+                                            <a href="{{ sports_news[i].link }}#">{{sports_news[i].title}}</a>
+                                        </h3>
+                                    </div>
+                                    <div class="inews-post-meta">
+                                        <span class="inews-post-author">
+                                            <i class="fas fa-user"></i> <a href="">{{sports_news[i].source_id}}</a>
+                                        </span>
+                                        <span class="inews-post-date">
+                                            <i class="fas fa-calendar-alt"></i>{{sports_news[i].pubDate}}
+                                        </span>
+                                    </div>
+                                    <div class="inews-post-content">
+                                        <p>{{sports_news[i].description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!--Post Item End-->                                                        
+                        </div>
+                    </div>
+                    <!--Post Block 3 End-->
+
+                    <!--Post Block 4 Start-->
+                    <div class="post-block">
+                        <div class="inews-post-block2">
+                            <div class="inews-block-title">
+                                <h4><span>Technology</span></h4>
+                            </div>
+                            {% for i in range([technology_news|length, 4] | min) %}
+                            <!--Post Item Start-->
+                            <div class="inews-post-item">
+                                <div class="inews-post-thumb">
+                                    <a href="#">
+                                        <img src="{{ technology_news[i].image_url }}" alt="Image">
+                                        <div class="inews-thumb-overlay overlay">
+                                            <div class="icon">
+                                                <i class="fas fa-images"></i>
+                                            </div>
+                                        </div>
+                                    </a>                    
+                                </div>
+                                <div class="inews-post-info">
+                                    <div class="inews-post-title">
+                                        <h3>
+                                            <a href="{{ technology_news[i].link }}#">{{technology_news[i].title}}</a>
+                                        </h3>
+                                    </div>
+                                    <div class="inews-post-meta">
+                                        <span class="inews-post-author">
+                                            <i class="fas fa-user"></i> <a href="">{{technology_news[i].source_id}}</a>
+                                        </span>
+                                        <span class="inews-post-date">
+                                            <i class="fas fa-calendar-alt"></i>{{technology_news[i].pubDate}}
+                                        </span>
+                                    </div>
+                                    <div class="inews-post-content">
+                                        <p>{{technology_news[i].description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!--Post Item End-->                                                        
+                        </div>
+                    </div>
+                    <!--Post Block 4 End-->
+
+                    <!--Post Block 5 Start-->
+                    <div class="post-block">
+                        <div class="inews-post-block2">
+                            <div class="inews-block-title">
+                                <h4><span>World</span></h4>
+                            </div>
+                            {% for i in range([world_news|length, 4] | min) %}
+                            <!--Post Item Start-->
+                            <div class="inews-post-item">
+                                <div class="inews-post-thumb">
+                                    <a href="#">
+                                        <img src="{{ world_news[i].image_url }}" alt="Image">
+                                        <div class="inews-thumb-overlay overlay">
+                                            <div class="icon">
+                                                <i class="fas fa-images"></i>
+                                            </div>
+                                        </div>
+                                    </a>                    
+                                </div>
+                                <div class="inews-post-info">
+                                    <div class="inews-post-title">
+                                        <h3>
+                                            <a href="{{ world_news[i].link }}#">{{world_news[i].title}}</a>
+                                        </h3>
+                                    </div>
+                                    <div class="inews-post-meta">
+                                        <span class="inews-post-author">
+                                            <i class="fas fa-user"></i> <a href="">{{world_news[i].source_id}}</a>
+                                        </span>
+                                        <span class="inews-post-date">
+                                            <i class="fas fa-calendar-alt"></i>{{world_news[i].pubDate}}
+                                        </span>
+                                    </div>
+                                    <div class="inews-post-content">
+                                        <p>{{world_news[i].description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!--Post Item End-->                                                        
+                        </div>
+                    </div>
+                    <!--Post Block 5 End-->
+
+                </div>                
+            </div>
+        </div>
+    </div>    
+    
+    <!--Javascripts-->
+    <script src="{{ full_url ~ 'static/js/jquery.min.js' }}"></script>
+    <script src="{{ full_url ~ 'static/js/bootstrap.min.js' }}"></script>
+    <script src="{{ full_url ~ 'static/js/jquery.meanmenu.min.js' }}"></script>
+    <script src="{{ full_url ~ 'static/js/acmeticker.min.js' }}"></script>
+    <script src="{{ full_url ~ 'static/js/instagram-feed.min.js' }}"></script>
+    <script src="{{ full_url ~ 'static/js/owl.carousel.min.js' }}"></script>
+    <script src="{{ full_url ~ 'static/js/custom.js' }}"></script>
 </body>
 </html>
