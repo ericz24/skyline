@@ -67,20 +67,19 @@ def _setup(request):
     '''
     global_state["INITIALIZED"] = True
 
-async def index(request):
+async def search(request):
     if request.method == "POST":
         form = await request.form()
         keywords = form["search"]
-        #articles = newscatcherapi.get_search(q=keywords,
-        #                                 lang='en',
-        #                                 countries='US',
-        #                                 page_size=100)
-        #print(articles)
 
         response = http.request("GET", f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&q={keywords}&language=en")
         data_json=json.loads(response.data)
-        return templates.TemplateResponse('index.html', {'request': request, 'articles':  data_json['results']})
+        print('keywords: ' + keywords)
+        return templates.TemplateResponse('search.html', {'request': request, 'news_returned':  data_json['results'], 'keywords': keywords})
+    else:
+        return templates.TemplateResponse('search.html', {'request': request, 'news_returned':  [], 'keywords': ''})
 
+async def index(request):
     if "Go-http-client" in request.headers['user-agent']:
         # Filter out health checks from the load balancer
         return PlainTextResponse("healthy")
@@ -110,7 +109,9 @@ def headers(request):
     return JSONResponse(dumps({k:v for k, v in request.headers.items()}))
 
 routes = [
-    Route('/', endpoint=index, methods=["GET", "POST"]),
+    Route('/', endpoint=index),
+    Route('/index.html', endpoint=index),
+    Route('/search', endpoint=search, methods=["GET", "POST"]),
     Route('/headers', endpoint=headers),
     Mount('/static', app=StaticFiles(directory='static'), name='static'),
 ]
