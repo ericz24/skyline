@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Meta Tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Title Goes Here-->
+    <title>iNews - Responsive Newspaper HTML Template</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/fontawesome.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/animate.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/meanmenu.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/acmeticker.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/owl.carousel.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" media="all">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!--Facebook Likebox SDK-->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=680537385693591&autoLogAppEvents=1" nonce="YCRu5rUW"></script>
+
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="../static/img/preloader.gif" alt="Preloader Image">
+    </div>
+    <!-- Preloader -->
+    
+    <!--Header Start-->
+    <header>
+        <!--Main Header Start-->
+        <div class="main-header">
+            <div class="container">
+                <!--Logo Bar Start-->
+                <div class="logobar">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-4">
+                            <div class="top-logo">
+                                <a href="/"><img src="../static/img/logo-dark.png" alt="Logo"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                <!--Logo Bar End-->
+               
+            </div>            
+        </div>
+
+        <div class="navigation border-bottom border-top">
+            <div class="container">
+                <!--Main Menu Start-->
+                <nav class="main-menu desktop-menu menu-shadow">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="menu-container">
+                                <ul class="menu">
+                                    <li><a href="index.html"><i class="fas fa-home menu-icon"></i> Home</a></li>
+                                    <li class="has-submenu"><a href="#">Pages</a>
+                                        <ul class="submenu">
+                                            <li class="has-submenu"><a href="#">Homepages</a>
+                                                <ul class="submenu">
+                                                    <li><a href="index.html">Home 1</a></li>
+                                                    <li><a href="index-2.html">Home 2</a></li>
+                                                    <li><a href="index-3.html">Home 3</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="login.html">Login</a></li>
+                                            <li><a href="register.html">Register</a></li>
+                                            <li><a href="search.html">Search Page</a></li>
+                                            <li><a href="404.html">404 Page</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="has-submenu"><a href="#">Post Type</a>
+                                        <ul class="submenu">
+                                            <li><a href="standard.html">Standard</a></li>
+                                            <li><a href="audio.html">Audio</a></li>
+                                            <li><a href="video.html">Video</a></li>
+                                            <li><a href="gallery.html">Gallery</a></li>
+                                            <li><a href="quote.html">Quote</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">World</a></li>
+                                    <li><a href="#">Politics</a></li>
+                                    <li><a href="#">Education</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>              
+                <div class="mobile-menu"></div>
+                <!--Main Menu End-->
+            </div>
+        </div>
+        <!--Main Header End-->
+    </header>
+    <!--Header End-->
+
+    <div class="main-content">
+        <div class="container">
+            <div class="search-page pt-5 pb-5">
+                <div class="search-text">
+                    <p>You have searched for : <span>{{keywords}}</span></p>
+                </div>
+                <div class="search-form">
+                    <form action="/search" method="post">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Search Here..." value="{{keywords}}">
+                            <div class="input-group-append">
+                              <button class="btn btn-red">Submit</button>
+                            </div>
+                          </div>
+                    </form>
+                </div>
+                <div class="post-block mt-5">
+                    <div class="inews-post-block2">
+                        {% for i in range([news_returned|length, 20] | min) %}
+                        <!--Post Item Start-->
+                        <div class="inews-post-item">
+                            <div class="inews-post-thumb">
+                                <a href="#">
+                                    <img src="{{ news_returned[i].image_url }}" alt="Image">
+                                    <div class="inews-thumb-overlay overlay">
+                                        <div class="icon">
+                                            <i class="far fa-play-circle"></i>
+                                        </div>
+                                    </div>
+                                </a>                    
+                            </div>
+                            <div class="inews-post-info">
+                                <div class="inews-post-title">
+                                    <h3>
+                                        <a href="{{ news_returned[i].link }}#">{{news_returned[i].title}}</a>
+                                    </h3>
+                                </div>
+                                <div class="inews-post-meta">
+                                    <span class="inews-post-author">
+                                        <i class="fas fa-user"></i> <a href="">{{news_returned[i].source_id}}
+                                    </span>
+                                    <span class="inews-post-date">
+                                        <i class="fas fa-calendar-alt"></i>{{news_returned[i].pubDate}}
+                                    </span>
+                                </div>
+                                <div class="inews-post-content">
+                                    <p>{{news_returned[i].description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <!--Post Item End-->                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <!--Javascripts-->
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/jquery.meanmenu.min.js"></script>
+    <script src="../static/js/acmeticker.min.js"></script>
+    <script src="../static/js/instagram-feed.min.js"></script>
+    <script src="../static/js/owl.carousel.min.js"></script>
+    <script src="../static/js/custom.js"></script>
+    <script>
+        (function($){
+            // Instagram Feed Ingration
+            $.instagramFeed({
+                'username'			: 'dalwar9195',
+                'container'			: ".instagram-photos",
+                'items_per_row'		: 4,
+                'items'				: 12,
+                'display_profile'	: false,
+                'display_biography'	: false,
+                'display_igtv'		: false,
+                'styling'			: true,
+                'margin'			: 1
+            });
+        }(jQuery))
+    </script>
+</body>
+</html>
