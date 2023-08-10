@@ -127,7 +127,7 @@
     <div class="post-block">
         <div class="container">
             <div class="inews-post-block1">
-                {% for i in range(3) %}
+                {% for i in range([top_news|length, 3] | min) %}
                 <!--Post Item Start-->
                 <div class="inews-post-item">
                     <div class="inews-post-thumb">
@@ -166,7 +166,7 @@
                             <div class="inews-block-title">
                                 <h4><span>Politics</span></h4>
                             </div>
-                            {% for i in range(4) %}
+                            {% for i in range([politics_news|length, 4] | min) %}
                             <!--Post Item Start-->
                             <div class="inews-post-item">
                                 <div class="inews-post-thumb">
