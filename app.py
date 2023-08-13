@@ -2,15 +2,15 @@
 import random, logging, sys
 import uvicorn
 
-from newscatcherapi import NewsCatcherApiClient
+#from newscatcherapi import NewsCatcherApiClient
 
-from starlette.applications import Starlette
 from starlette.routing import Route, Mount
-from starlette.templating import Jinja2Templates
-from starlette.config import Config
-from starlette.staticfiles import StaticFiles
-from starlette.responses import PlainTextResponse, JSONResponse
 from starlette_exporter import PrometheusMiddleware, handle_metrics
+
+from fastapi import FastAPI, Request
+from fastapi.responses import PlainTextResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 import json
 #from requests import get
@@ -23,15 +23,8 @@ templates = Jinja2Templates(directory='templates')
 #newscatcherapi = NewsCatcherApiClient(x_api_key=getenv('NEWS_API_KEY')) 
 http = urllib3.PoolManager()
 
-global_state = {
-    "INITIALIZED": False
-}
-
 logging.basicConfig(stream=sys.stdout, level=eval('logging.' + getenv('LOG_LEVEL', 'INFO')))
 logging.debug('Log level is set to DEBUG.')
-
-def homepage(request):
-    return PlainTextResponse('Hello, world!')
 
 def _getResponse(url, pagination = False):
     allResponse = []
@@ -54,18 +47,8 @@ def _getResponse(url, pagination = False):
         if not page:
             break
 
-    print(json.dumps(allResponse, indent=2))
+    #print(json.dumps(allResponse, indent=2))
     return allResponse
-
-def _setup(request):
-    '''
-    random.seed(str(request.url))
-    if not path.isfile('avatar.png'):
-        generate_avatar_image()
-    if not path.isfile('./static/social.png'):
-        generate_social_card('avatar.png')
-    '''
-    global_state["INITIALIZED"] = True
 
 async def search(request):
     if request.method == "POST":
@@ -74,7 +57,7 @@ async def search(request):
 
         response = http.request("GET", f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&q={keywords}&language=en")
         data_json=json.loads(response.data)
-        print('keywords: ' + keywords)
+        logging.debug('keywords: ' + keywords)
         return templates.TemplateResponse('search.html', {'request': request, 'news_returned':  data_json['results'], 'keywords': keywords})
     else:
         return templates.TemplateResponse('search.html', {'request': request, 'news_returned':  [], 'keywords': ''})
@@ -83,11 +66,7 @@ async def index(request):
     if "Go-http-client" in request.headers['user-agent']:
         # Filter out health checks from the load balancer
         return PlainTextResponse("healthy")
-    if "curl" in request.headers['user-agent']:
-        return templates.TemplateResponse('index.txt', {'request': request})
     else:
-        if not global_state["INITIALIZED"]:
-            _setup(request)
         #response = http.request("GET", f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=top,politics,sports,entertainment,technology&language=en&country=us")
         #data_json=json.loads(response.data)
         #print(json.dumps(data_json, indent=2))
@@ -116,12 +95,9 @@ routes = [
     Mount('/static', app=StaticFiles(directory='static'), name='static'),
 ]
 
-app = Starlette(debug=True, routes=routes)
+app = FastAPI(routes=routes)
 app.add_middleware(PrometheusMiddleware)
 app.add_route("/metrics", handle_metrics)
-
-config = Config()
-
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0",
