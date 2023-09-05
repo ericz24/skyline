@@ -1,9 +1,3 @@
-{% set request_url = request.url | string() %}
-{% if ( '0.0' in request_url or 'localhost' in request_url )  %}
-{% set full_url = request.url | string() %}
-{% else %}
-{% set full_url = request.url | replace("http:", "https:") | string() %}
-{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,12 +9,12 @@
     <title>Top News Watch</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/bootstrap.min.css' }}" media="all">
-    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/fontawesome.min.css' }}" media="all">
-    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/animate.min.css' }}" media="all">
-    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/meanmenu.min.css' }}" media="all">
-    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/acmeticker.min.css' }}" media="all">
-    <link rel="stylesheet" type="text/css" href="{{ full_url ~ 'static/css/style.css' }}" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/fontawesome.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/animate.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/meanmenu.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/acmeticker.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" media="all">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
@@ -32,7 +26,7 @@
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{{ full_url ~ 'static/img/preloader.gif' }}" alt="Preloader Image">
+        <img src="../static/img/preloader.gif" alt="Preloader Image">
     </div>
     <!-- Preloader -->
     
@@ -65,30 +59,6 @@
                             <div class="menu-container">
                                 <ul class="menu">
                                     <li><a href="index.html"><i class="fas fa-home menu-icon"></i> Home</a></li>
-                                    <li class="has-submenu"><a href="#">Pages</a>
-                                        <ul class="submenu">
-                                            <li class="has-submenu"><a href="#">Homepages</a>
-                                                <ul class="submenu">
-                                                    <li><a href="index.html">Home 1</a></li>
-                                                    <li><a href="index-2.html">Home 2</a></li>
-                                                    <li><a href="index-3.html">Home 3</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="search.html">Search Page</a></li>
-                                            <li><a href="404.html">404 Page</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-submenu"><a href="#">Post Type</a>
-                                        <ul class="submenu">
-                                            <li><a href="standard.html">Standard</a></li>
-                                            <li><a href="audio.html">Audio</a></li>
-                                            <li><a href="video.html">Video</a></li>
-                                            <li><a href="gallery.html">Gallery</a></li>
-                                            <li><a href="quote.html">Quote</a></li>
-                                        </ul>
-                                    </li>
                                     <li><a href="#">World</a></li>
                                     <li><a href="#">Politics</a></li>
                                     <li><a href="#">Education</a></li>
@@ -342,12 +312,12 @@
     </div>    
     
     <!--Javascripts-->
-    <script src="{{ full_url ~ 'static/js/jquery.min.js' }}"></script>
-    <script src="{{ full_url ~ 'static/js/bootstrap.min.js' }}"></script>
-    <script src="{{ full_url ~ 'static/js/jquery.meanmenu.min.js' }}"></script>
-    <script src="{{ full_url ~ 'static/js/acmeticker.min.js' }}"></script>
-    <script src="{{ full_url ~ 'static/js/instagram-feed.min.js' }}"></script>
-    <script src="{{ full_url ~ 'static/js/owl.carousel.min.js' }}"></script>
-    <script src="{{ full_url ~ 'static/js/custom.js' }}"></script>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js../"></script>
+    <script src="../static/js/jquery.meanmenu.min.js"></script>
+    <script src="../static/js/acmeticker.min.js"></script>
+    <script src="../static/js/instagram-feed.min.js"></script>
+    <script src="../static/js/owl.carousel.min.js"></script>
+    <script src="../static/js/custom.js"></script>
 </body>
 </html>

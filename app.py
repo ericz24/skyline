@@ -72,15 +72,15 @@ async def index(request):
         #print(json.dumps(data_json, indent=2))
 
         #results = data_json['results']
-        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=top&language=en&country=us")
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=top&language=en&country=us&image=1")
         top_news = [result for result in results if result['category'][0] == 'top' and result['image_url']]
-        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=politics&language=en&country=us")
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=politics&language=en&country=us&image=1")
         politics_news = [result for result in results if result['category'][0] == 'politics' and result['image_url']]
-        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=sports&language=en&country=us")
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=sports&language=en&country=us&image=1")
         sports_news = [result for result in results if result['category'][0] == 'sports' and result['image_url']]
-        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=world&language=en")
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=world&language=en&image=1")
         world_news = [result for result in results if result['category'][0] == 'world' and result['image_url']]
-        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=technology&language=en&country=us")
+        results = _getResponse(f"https://newsdata.io/api/1/news?apikey={getenv('NEWSDATA_API_KEY')}&category=technology&language=en&country=us&image=1")
         technology_news = [result for result in results if result['category'][0] == 'technology' and result['image_url']]
         return templates.TemplateResponse('index.html', {'request': request, 'top_news': top_news, 'politics_news': politics_news, 'sports_news': sports_news, 'world_news': world_news, 'technology_news': technology_news})
 
