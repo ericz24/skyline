@@ -8,3 +8,5 @@ urllib3==1.26.9
 fastapi==0.101.0
 #newscatcherapi==0.7.0
 python-multipart==0.0.6
+fastapi-users[sqlalchemy]
+asyncpg
